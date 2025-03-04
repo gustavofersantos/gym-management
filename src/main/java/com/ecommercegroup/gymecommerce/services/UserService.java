@@ -2,7 +2,6 @@ package com.ecommercegroup.gymecommerce.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public User findById(UUID id) {
+	public User findById(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		return user.orElseThrow(() -> new ObjectNotFoundException("Id de usuário não encontrado"));
 	}
@@ -51,7 +50,7 @@ public class UserService {
 		updateUser.setEmail(user.getEmail());	
 	}
 
-	public void deleteById(UUID id) {
+	public void deleteById(Long id) {
 		userRepository.deleteById(id);
 	}
 	

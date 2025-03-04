@@ -1,19 +1,27 @@
 package com.ecommercegroup.gymecommerce.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.UUID;
+import java.time.LocalDate;
 
 import com.ecommercegroup.gymecommerce.entities.User;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class UserDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-    private UUID id;
+    private Long id;
+    
+    @NotBlank(message = "Nome é obrigatório")
+    @Size (min = 2, max = 100, message = "Nome deve ter entre 2 a 100 caracteres")
     private String name;
+    
     private String phone;
     private String email;
-    private Date birthdate;
+    private LocalDate birthdate;
+    
+    @NotBlank(message = "Cpf é obrigatório")
     private String cpf;
     private String password;
     
@@ -31,11 +39,11 @@ public class UserDto implements Serializable {
 		this.password = user.getPassword();
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,11 +71,11 @@ public class UserDto implements Serializable {
 		this.email = email;
 	}
 
-	public Date getBirthdate() {
+	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
 

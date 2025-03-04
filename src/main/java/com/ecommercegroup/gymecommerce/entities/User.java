@@ -1,14 +1,17 @@
 package com.ecommercegroup.gymecommerce.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
-import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Table(name = "tb_user")
 @Entity
@@ -16,34 +19,46 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+    
+    @NotBlank(message = "Nome é obrigatório")
+    @Size (min = 2, max = 100, message = "Nome deve ter entre 2 a 100 caracteres")
+    @Column(nullable = false)
     private String name;
+    
+    @Column(unique = true)
     private String phone;
+    
     private String email;
-    private Date birthdate;
+    private LocalDate birthdate;
+    
+    @NotBlank(message = "Cpf é obrigatório")
+    @Column(nullable = false, unique = true)
     private String cpf;
+    
     private String password;
 
     public User() {
     }
 
-    public User(UUID id, String name, String phone, String email, Date birthdate, String cpf, String password) {
+    public User(Long id, String name, String phone, String email, LocalDate date, String cpf, String password) {
         super();
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.birthdate = birthdate;
+        this.birthdate = date;
         this.cpf = cpf;
         this.password = password;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -71,11 +86,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

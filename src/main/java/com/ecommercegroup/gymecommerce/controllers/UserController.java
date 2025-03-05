@@ -18,6 +18,8 @@ import com.ecommercegroup.gymecommerce.dto.UserDto;
 import com.ecommercegroup.gymecommerce.entities.User;
 import com.ecommercegroup.gymecommerce.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/alunos")
 public class UserController {
@@ -26,7 +28,7 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping
-	public ResponseEntity<UserDto> save(@RequestBody UserDto userDto) {
+	public ResponseEntity<UserDto> save(@Valid @RequestBody UserDto userDto) {
 		User newUser = userService.save(userDto);
 		
 		return ResponseEntity.status(201).body(new UserDto(newUser));
@@ -53,7 +55,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody UserDto userDto, @PathVariable Long id){
+	public ResponseEntity<Void> update(@Valid @RequestBody UserDto userDto, @PathVariable Long id){
 		User user = userService.fromDto(userDto);
 		user.setId(id);
 		user = userService.update(user);

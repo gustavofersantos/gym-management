@@ -11,12 +11,15 @@ import com.ecommercegroup.gymecommerce.entities.User;
 import com.ecommercegroup.gymecommerce.repositories.UserRepository;
 import com.ecommercegroup.gymecommerce.services.exceptions.ObjectNotFoundException;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
-
+	
+	@Transactional
 	public User save(UserDto userDto) {
 		User user = fromDto(userDto);
 		return userRepository.save(user);
@@ -39,6 +42,7 @@ public class UserService {
 		throw new ObjectNotFoundException("Nome de usuário não encontrado");
 	}
 	
+	@Transactional
 	public User update(User user) {
 		User updateUser = userRepository.findById(user.getId()).get();
 		updateData(updateUser, user);
@@ -50,13 +54,9 @@ public class UserService {
 		updateUser.setEmail(user.getEmail());	
 	}
 
+	@Transactional
 	public void deleteById(Long id) {
 		userRepository.deleteById(id);
-	}
-	
-	public void deleteByName(String userName) {
-		List<User> users = userRepository.findByName(userName);
-		userRepository.deleteById(users.get(0).getId());
 	}
 	
 	public User fromDto(UserDto userDto) {

@@ -23,8 +23,6 @@ public class User implements Serializable {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
     
-    @NotBlank(message = "Nome é obrigatório")
-    @Size (min = 2, max = 100, message = "Nome deve ter entre 2 a 100 caracteres")
     @Column(nullable = false)
     private String name;
     
@@ -33,11 +31,10 @@ public class User implements Serializable {
     
     private String email;
     private LocalDate birthdate;
-    
-    @NotBlank(message = "Cpf é obrigatório")
+
     @Column(nullable = false, unique = true)
     private String cpf;
-    
+
     private String password;
 
     public User() {

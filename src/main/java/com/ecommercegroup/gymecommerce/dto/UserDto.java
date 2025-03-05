@@ -5,7 +5,10 @@ import java.time.LocalDate;
 
 import com.ecommercegroup.gymecommerce.entities.User;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class UserDto implements Serializable {
@@ -17,12 +20,20 @@ public class UserDto implements Serializable {
     @Size (min = 2, max = 100, message = "Nome deve ter entre 2 a 100 caracteres")
     private String name;
     
+    @Pattern(regexp = "^\\d{10,11}$", message = "O telefone deve conter 10 ou 11 dígitos numéricos")
     private String phone;
+    
+    @Email(message = "E-mail inválido")
     private String email;
+    
+    @Past(message = "Data de nascimento inválido")
     private LocalDate birthdate;
     
     @NotBlank(message = "Cpf é obrigatório")
+    @Pattern(regexp = "^[0-9]{11}$", message = "CPF deve conter 11 dígitos numéricos")
     private String cpf;
+    
+    @NotBlank(message = "Insira uma senha")
     private String password;
     
     public UserDto() {

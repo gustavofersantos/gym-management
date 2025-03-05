@@ -5,5 +5,5 @@ O projeto, sistema de gestão de academia, atualmente possui o foco na criação
 
 ## Tecnologias no back
 - Linguagem: Java
-- Framework: JPA/Hibernate
+- Framework: Spring Boot + JPA
 - Banco de dados: PostgreSQL

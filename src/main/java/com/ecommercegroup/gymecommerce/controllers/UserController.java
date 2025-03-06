@@ -1,13 +1,11 @@
 package com.ecommercegroup.gymecommerce.controllers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,52 +19,41 @@ import com.ecommercegroup.gymecommerce.services.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/alunos")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
-
-	@PostMapping
-	public ResponseEntity<UserDto> save(@Valid @RequestBody UserDto userDto) {
-		User newUser = userService.save(userDto);
-		
-		return ResponseEntity.status(201).body(new UserDto(newUser));
+	
+	@PostMapping("/register")
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
+		User user = userService.save(userDto);
+		return ResponseEntity.status(201).body(new UserDto(user));
 	}
 	
-	@GetMapping
-	public List<User> findAll() {
-		return userService.findAll();
-	}
-
-	@GetMapping("/searchid/{id}")
-	public ResponseEntity<UserDto> findById(@PathVariable Long id) {
-		User user = userService.findById(id);
-		
-		return ResponseEntity.ok().body(new UserDto(user));
-	}
-
-	@GetMapping("/searchname/{name}")
-	public ResponseEntity<List<UserDto>> findByName(@PathVariable String name) {
-		List<User> listUsers = userService.findByName(name);
-		List<UserDto> listDto = listUsers.stream().map(UserDto::new).collect(Collectors.toList());
-
-		return ResponseEntity.ok().body(listDto);
+	@GetMapping("/me")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<UserDto> getProfile(Authentication authentication) {
+		String userCpf = authentication.getName();
+		User user = userService.findByCpf(userCpf);
+		return ResponseEntity.ok(new UserDto(user));
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody UserDto userDto, @PathVariable Long id){
-		User user = userService.fromDto(userDto);
-		user.setId(id);
-		user = userService.update(user);
-		
+	@PutMapping("/me")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<UserDto> updateProfile(@RequestBody UserDto userDto, Authentication authentication) {
+		String userCpf = authentication.getName();
+		User user = userService.update(userCpf, userDto);
+		return ResponseEntity.ok(new UserDto(user));
+	}
+	
+	@DeleteMapping("/me")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<Void> deleteProfile(Authentication authentication) {
+		String userCpf = authentication.getName();
+		User user = userService.findByCpf(userCpf);
+		userService.deleteById(user.getId());
 		return ResponseEntity.noContent().build();
 	}
-
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-		userService.deleteById(id);
-		
-		return ResponseEntity.noContent().build();
-	}
+	
 }

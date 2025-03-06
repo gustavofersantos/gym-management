@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecommercegroup.gymecommerce.dto.UserDto;
 import com.ecommercegroup.gymecommerce.entities.User;
+import com.ecommercegroup.gymecommerce.enums.Roles;
 import com.ecommercegroup.gymecommerce.repositories.UserRepository;
 import com.ecommercegroup.gymecommerce.services.exceptions.ObjectNotFoundException;
 
@@ -19,9 +22,22 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
 	@Transactional
 	public User save(UserDto userDto) {
+		if (userRepository.existsByCpf(userDto.getCpf())) {
+			throw new RuntimeException("Cpf já cadastrado!");
+		} else if (userRepository.existsByEmail(userDto.getEmail())) {
+			throw new RuntimeException("E-mail já cadastrado!");
+		} else if (userRepository.existsByPhone(userDto.getPhone())) {
+			throw new RuntimeException("Telefone já cadastrado!");
+		}
+		
 		User user = fromDto(userDto);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		user.setRole(Roles.USER);
 		return userRepository.save(user);
 	}
 	
@@ -42,16 +58,21 @@ public class UserService {
 		throw new ObjectNotFoundException("Nome de usuário não encontrado");
 	}
 	
-	@Transactional
-	public User update(User user) {
-		User updateUser = userRepository.findById(user.getId()).get();
-		updateData(updateUser, user);
-		return userRepository.save(updateUser);
+	public User findByCpf(String cpf) {
+	    return userRepository.findByCpf(cpf)
+	        .orElseThrow(() -> new ObjectNotFoundException("Usuário com CPF " + cpf + " não encontrado"));
 	}
 	
-	private void updateData(User updateUser, User user) {
-		updateUser.setName(user.getName());
-		updateUser.setEmail(user.getEmail());	
+	@Transactional
+	public User update(String cpf, UserDto userDto) {
+		User user = findByCpf(cpf);
+		updateData(user, userDto);
+		return userRepository.save(user);
+	}
+	
+	private void updateData(User user, UserDto userDto) {
+		user.setName(user.getName());
+		user.setEmail(user.getEmail());	
 	}
 
 	@Transactional
@@ -60,6 +81,6 @@ public class UserService {
 	}
 	
 	public User fromDto(UserDto userDto) {
-		return new User(userDto.getId(), userDto.getName(), userDto.getPhone(), userDto.getEmail(), userDto.getBirthdate(), userDto.getCpf(), userDto.getPassword());
+		return new User(userDto.getId(), userDto.getName(), userDto.getPhone(), userDto.getEmail(), userDto.getBirthdate(), userDto.getCpf(), userDto.getPassword(), Roles.USER);
 	}
 }

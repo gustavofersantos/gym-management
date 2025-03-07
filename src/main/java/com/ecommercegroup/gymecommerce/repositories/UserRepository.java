@@ -14,8 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	boolean existsByEmail(String email);
 	boolean existsByPhone(String phone);
 
-
-	@Query("{ 'name': { $regex: ?0, $options: 'i' } }")
+	
 	List<User> findByName(String name);
 
 	Optional<User> findByCpf(String cpf);

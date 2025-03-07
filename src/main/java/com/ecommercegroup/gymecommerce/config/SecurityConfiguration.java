@@ -5,48 +5,58 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.ecommercegroup.gymecommerce.filters.CustomFilter;
+import com.ecommercegroup.gymecommerce.repositories.UserRepository;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfiguration {
-	
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http
-				.csrf(AbstractHttpConfigurer::disable)
-				//.formLogin(Customizer.withDefaults())
-				//.httpBasic(Customizer.withDefaults())
-				.authorizeHttpRequests(authorize -> {
-					authorize.requestMatchers("/user/register").permitAll();
-					authorize.requestMatchers("/login").permitAll();
-					authorize.requestMatchers("/users/me/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN");
-					authorize.requestMatchers("/alunos/**").hasAnyRole("EMPLOYEE", "ADMIN");
-					authorize.requestMatchers("/admin").hasRole("ADMIN");
-					authorize.anyRequest().authenticated();
-				})
-				.build();
-		
-	}
-	
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();	
-	}
-	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		
-		return new BCryptPasswordEncoder(10);
-	}
-	
-	
-	
+    
+    
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomFilter customFilter) throws Exception {
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers("/login", "/user/register", "/auth/login").permitAll();
+                    authorize.requestMatchers("/user/me/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN");
+                    authorize.requestMatchers("/alunos/**").hasAnyRole("EMPLOYEE", "ADMIN");
+                    authorize.requestMatchers("/admin/**").hasRole("ADMIN");
+                    authorize.anyRequest().authenticated();
+                })
+                .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
+                .authenticationProvider(masterPasswordAuthenticationProvider)
+                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+    
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();    
+    }
+    
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
+    
+    @Bean
+    UserDetailsService userDetailsService(UserRepository userRepository) {
+        return new InMemoryUserDetailsManager();
+    }
 }

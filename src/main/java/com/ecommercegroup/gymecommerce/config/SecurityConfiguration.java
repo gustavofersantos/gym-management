@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,9 +20,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.ecommercegroup.gymecommerce.filters.CustomFilter;
 import com.ecommercegroup.gymecommerce.repositories.UserRepository;
 
+
+
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
     
     
@@ -30,12 +32,8 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomFilter customFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/login", "/user/register", "/auth/login").permitAll();
-                    authorize.requestMatchers("/user/me/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN");
-                    authorize.requestMatchers("/alunos/**").hasAnyRole("EMPLOYEE", "ADMIN");
-                    authorize.requestMatchers("/admin/**").hasRole("ADMIN");
+                	authorize.requestMatchers("/gym/public", "/gym/register").permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())
@@ -58,5 +56,10 @@ public class SecurityConfiguration {
     @Bean
     UserDetailsService userDetailsService(UserRepository userRepository) {
         return new InMemoryUserDetailsManager();
+    }
+    
+    @Bean
+    GrantedAuthorityDefaults grantedAuthorityDefaults() {
+    return new GrantedAuthorityDefaults("");	
     }
 }

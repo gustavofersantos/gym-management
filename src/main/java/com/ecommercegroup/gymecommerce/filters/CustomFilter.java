@@ -22,6 +22,12 @@ public class CustomFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		
+		if (request.getRequestURI().equals("/gym/register") || request.getRequestURI().equals("/login") || request.getRequestURI().equals("/auth/login")) {
+	        filterChain.doFilter(request, response);
+	        return;
+	    }
+		
 		String secretHeader = request.getHeader("x-secret");
 		
 		if (secretHeader != null) {

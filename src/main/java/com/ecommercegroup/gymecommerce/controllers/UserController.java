@@ -1,5 +1,7 @@
 package com.ecommercegroup.gymecommerce.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,11 +21,12 @@ import com.ecommercegroup.gymecommerce.services.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/gym")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+
 	
 	@PostMapping("/register")
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
@@ -36,7 +39,7 @@ public class UserController {
 	public ResponseEntity<UserDto> getProfile(Authentication authentication) {
 		String userCpf = authentication.getName();
 		User user = userService.findByCpf(userCpf);
-		return ResponseEntity.ok(new UserDto(user));
+		return ResponseEntity.ok().body(new UserDto(user));
 	}
 	
 	@PutMapping("/me")
@@ -54,6 +57,14 @@ public class UserController {
 		User user = userService.findByCpf(userCpf);
 		userService.deleteById(user.getId());
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/alunos")
+	@PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
+	public ResponseEntity<List<User>> findAll() {
+		List<User> listUsers = userService.findAll();
+		
+		return ResponseEntity.ok().body(listUsers);
 	}
 	
 }

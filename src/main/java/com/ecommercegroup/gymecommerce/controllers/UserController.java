@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommercegroup.gymecommerce.dto.UserDto;
 import com.ecommercegroup.gymecommerce.entities.User;
+import com.ecommercegroup.gymecommerce.enums.Roles;
 import com.ecommercegroup.gymecommerce.services.UserService;
 
 import jakarta.validation.Valid;
@@ -30,8 +31,22 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
-		User user = userService.save(userDto);
+		User user = userService.save(userDto, Roles.USER);
 		return ResponseEntity.status(201).body(new UserDto(user));
+	}
+	
+	@PostMapping("/register-employee")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<UserDto> createEmployee(@Valid @RequestBody UserDto userDto) {
+		User employee = userService.save(userDto, Roles.EMPLOYEE);
+		return ResponseEntity.status(201).body(new UserDto(employee));
+	}
+	
+	@PostMapping("/register-admin")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<UserDto> createAdmin(@Valid @RequestBody UserDto userDto) {
+		User admin = userService.save(userDto, Roles.ADMIN);
+		return ResponseEntity.status(201).body(new UserDto(admin));
 	}
 	
 	@GetMapping("/me")

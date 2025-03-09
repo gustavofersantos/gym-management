@@ -25,7 +25,7 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	@Transactional
-	public User save(UserDto userDto) {
+	public User save(UserDto userDto, Roles role) {
 		if (userRepository.existsByCpf(userDto.getCpf())) {
 			throw new RuntimeException("Cpf já cadastrado!");
 		} else if (userRepository.existsByEmail(userDto.getEmail())) {
@@ -37,7 +37,7 @@ public class UserService {
 		User user = fromDto(userDto);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
-		user.setRole(Roles.USER);
+		user.setRole(role);
 		return userRepository.save(user);
 	}
 	
@@ -81,6 +81,6 @@ public class UserService {
 	}
 	
 	public User fromDto(UserDto userDto) {
-		return new User(userDto.getId(), userDto.getName(), userDto.getPhone(), userDto.getEmail(), userDto.getBirthdate(), userDto.getCpf(), userDto.getPassword(), Roles.USER);
+		return new User(userDto.getId(), userDto.getName(), userDto.getPhone(), userDto.getEmail(), userDto.getBirthdate(), userDto.getCpf(), userDto.getPassword(), null);
 	}
 }

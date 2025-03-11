@@ -41,7 +41,7 @@ public class UserController {
 		return ResponseEntity.status(201).body(new UserDto(employee));
 	}
 
-	@PostMapping("/register-admin")
+	@PostMapping("/register-manager")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserDto> createAdmin(@Valid @RequestBody UserDto userDto) {
 		User admin = userService.save(userDto, Roles.ADMIN);

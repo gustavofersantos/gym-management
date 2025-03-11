@@ -3,6 +3,7 @@ package com.managementgroup.gymmanagement.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -13,12 +14,12 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.managementgroup.gymmanagement.filters.CustomFilter;
 import com.managementgroup.gymmanagement.repositories.UserRepository;
+import com.managementgroup.gymmanagement.services.CustomUserDetailsService;
 
 
 
@@ -27,9 +28,10 @@ import com.managementgroup.gymmanagement.repositories.UserRepository;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
     
-    
+    DaoAuthenticationProvider ads;
+	
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomFilter customFilter) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider daoAuthenticationProvider, CustomFilter customFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
@@ -37,10 +39,18 @@ public class SecurityConfiguration {
                     authorize.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
-                .authenticationProvider(masterPasswordAuthenticationProvider)
-                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin(form -> form.defaultSuccessUrl("/gym/me"))
+                .authenticationProvider(daoAuthenticationProvider)
+                .addFilterBefore(customFilter, BasicAuthenticationFilter.class)
                 .build();
+    }
+    
+    @Bean
+    DaoAuthenticationProvider daoAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    	DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    	provider.setUserDetailsService(userDetailsService);
+    	provider.setPasswordEncoder(passwordEncoder);
+    	return provider;
     }
     
     @Bean
@@ -55,7 +65,7 @@ public class SecurityConfiguration {
     
     @Bean
     UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new InMemoryUserDetailsManager();
+        return new CustomUserDetailsService(userRepository);
     }
     
     @Bean

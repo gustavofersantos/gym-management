@@ -28,27 +28,34 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	
 	@PostMapping("/register")
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
 		User user = userService.save(userDto, Roles.USER);
 		return ResponseEntity.status(201).body(new UserDto(user));
 	}
-	
+
 	@PostMapping("/register-employee")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserDto> createEmployee(@Valid @RequestBody UserDto userDto) {
 		User employee = userService.save(userDto, Roles.EMPLOYEE);
 		return ResponseEntity.status(201).body(new UserDto(employee));
 	}
-	
+
 	@PostMapping("/register-admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserDto> createAdmin(@Valid @RequestBody UserDto userDto) {
 		User admin = userService.save(userDto, Roles.ADMIN);
 		return ResponseEntity.status(201).body(new UserDto(admin));
 	}
-	
+
+	@GetMapping("/alunos")
+	@PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
+	public ResponseEntity<List<User>> findAll() {
+		List<User> listUsers = userService.findAll();
+
+		return ResponseEntity.ok().body(listUsers);
+	}
+
 	@GetMapping("/me")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<UserDto> getProfile(Authentication authentication) {
@@ -56,7 +63,7 @@ public class UserController {
 		User user = userService.findByCpf(userCpf);
 		return ResponseEntity.ok().body(new UserDto(user));
 	}
-	
+
 	@PutMapping("/me")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<UserDto> updateProfile(@RequestBody UserDto userDto, Authentication authentication) {
@@ -64,7 +71,7 @@ public class UserController {
 		User user = userService.update(userCpf, userDto);
 		return ResponseEntity.ok(new UserDto(user));
 	}
-	
+
 	@DeleteMapping("/me")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Void> deleteProfile(Authentication authentication) {
@@ -73,13 +80,12 @@ public class UserController {
 		userService.deleteById(user.getId());
 		return ResponseEntity.noContent().build();
 	}
-	
-	@GetMapping("/alunos")
-	@PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
-	public ResponseEntity<List<User>> findAll() {
-		List<User> listUsers = userService.findAll();
-		
-		return ResponseEntity.ok().body(listUsers);
+
+	@DeleteMapping("/delete-user")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Void> deleteUser(Long id) {
+		userService.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
-	
+
 }

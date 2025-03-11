@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.services;
+package com.managementgroup.gymmanagement.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,11 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ecommercegroup.gymecommerce.dto.UserDto;
-import com.ecommercegroup.gymecommerce.entities.User;
-import com.ecommercegroup.gymecommerce.enums.Roles;
-import com.ecommercegroup.gymecommerce.repositories.UserRepository;
-import com.ecommercegroup.gymecommerce.services.exceptions.ObjectNotFoundException;
+import com.managementgroup.gymmanagement.dto.UserDto;
+import com.managementgroup.gymmanagement.entities.User;
+import com.managementgroup.gymmanagement.enums.Roles;
+import com.managementgroup.gymmanagement.repositories.UserRepository;
+import com.managementgroup.gymmanagement.services.exceptions.ObjectNotFoundException;
 
 import jakarta.transaction.Transactional;
 

@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.controllers;
+package com.managementgroup.gymmanagement.controllers;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommercegroup.gymecommerce.dto.UserDto;
-import com.ecommercegroup.gymecommerce.entities.User;
-import com.ecommercegroup.gymecommerce.enums.Roles;
-import com.ecommercegroup.gymecommerce.services.UserService;
+import com.managementgroup.gymmanagement.dto.UserDto;
+import com.managementgroup.gymmanagement.entities.User;
+import com.managementgroup.gymmanagement.enums.Roles;
+import com.managementgroup.gymmanagement.services.UserService;
 
 import jakarta.validation.Valid;
 

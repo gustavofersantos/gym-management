@@ -1,11 +1,11 @@
-package com.ecommercegroup.gymecommerce.repositories;
+package com.managementgroup.gymmanagement.repositories;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ecommercegroup.gymecommerce.entities.User;
+import com.managementgroup.gymmanagement.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 	

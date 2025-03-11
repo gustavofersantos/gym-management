@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.entities;
+package com.managementgroup.gymmanagement.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.ecommercegroup.gymecommerce.enums.Roles;
+import com.managementgroup.gymmanagement.enums.Roles;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

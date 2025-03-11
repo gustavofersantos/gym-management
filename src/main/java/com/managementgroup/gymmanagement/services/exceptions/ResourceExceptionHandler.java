@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.services.exceptions;
+package com.managementgroup.gymmanagement.services.exceptions;
 
 import java.util.HashMap;
 import java.util.Map;

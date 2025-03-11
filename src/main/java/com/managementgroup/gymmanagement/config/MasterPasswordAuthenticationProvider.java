@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.config;
+package com.managementgroup.gymmanagement.config;
 
 import java.util.List;
 

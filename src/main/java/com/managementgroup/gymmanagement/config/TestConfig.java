@@ -1,11 +1,11 @@
-package com.ecommercegroup.gymecommerce.config;
+package com.managementgroup.gymmanagement.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.ecommercegroup.gymecommerce.repositories.UserRepository;
+import com.managementgroup.gymmanagement.repositories.UserRepository;
 
 @Configuration
 @Profile("test")

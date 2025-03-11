@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.config;
+package com.managementgroup.gymmanagement.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +17,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.ecommercegroup.gymecommerce.filters.CustomFilter;
-import com.ecommercegroup.gymecommerce.repositories.UserRepository;
+import com.managementgroup.gymmanagement.filters.CustomFilter;
+import com.managementgroup.gymmanagement.repositories.UserRepository;
 
 
 

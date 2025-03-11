@@ -1,9 +1,9 @@
-package com.ecommercegroup.gymecommerce.dto;
+package com.managementgroup.gymmanagement.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import com.ecommercegroup.gymecommerce.entities.User;
+import com.managementgroup.gymmanagement.entities.User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

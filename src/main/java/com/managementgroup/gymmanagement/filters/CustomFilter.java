@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.filters;
+package com.managementgroup.gymmanagement.filters;
 
 import java.io.IOException;
 import java.util.List;

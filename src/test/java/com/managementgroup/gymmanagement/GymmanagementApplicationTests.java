@@ -1,11 +1,11 @@
-package com.ecommercegroup.gymecommerce;
+package com.managementgroup.gymmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GymecommerceApplicationTests {
+public class GymmanagementApplicationTests {
     public static void main(String[] args) {
-        SpringApplication.run(GymecommerceApplicationTests.class, args);
+        SpringApplication.run(GymmanagementApplicationTests.class, args);
     }
 }

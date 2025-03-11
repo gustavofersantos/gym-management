@@ -1,4 +1,4 @@
-package com.ecommercegroup.gymecommerce.dto;
+package com.managementgroup.gymmanagement.dto;
 
 public class LoginDto {
 	

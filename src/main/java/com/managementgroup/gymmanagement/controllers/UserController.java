@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.managementgroup.gymmanagement.dto.UserDto;
 import com.managementgroup.gymmanagement.entities.User;
-import com.managementgroup.gymmanagement.enums.Roles;
+import com.managementgroup.gymmanagement.entities.enums.Roles;
 import com.managementgroup.gymmanagement.services.UserService;
 
 import jakarta.validation.Valid;

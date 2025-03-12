@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.managementgroup.gymmanagement.dto.UserDto;
 import com.managementgroup.gymmanagement.entities.User;
-import com.managementgroup.gymmanagement.enums.Roles;
+import com.managementgroup.gymmanagement.entities.enums.Roles;
 import com.managementgroup.gymmanagement.repositories.UserRepository;
 import com.managementgroup.gymmanagement.services.exceptions.ObjectNotFoundException;
 

@@ -34,7 +34,7 @@ public class UserService {
 			throw new RuntimeException("Telefone já cadastrado!");
 		}
 		
-		User user = fromDto(userDto);
+		User user = fromUserDto(userDto);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		user.setRole(role);
@@ -80,7 +80,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
-	public User fromDto(UserDto userDto) {
+	public User fromUserDto(UserDto userDto) {
 		return new User(userDto.getId(), userDto.getName(), userDto.getPhone(), userDto.getEmail(), userDto.getBirthdate(), userDto.getCpf(), userDto.getPassword(), null);
 	}
 }

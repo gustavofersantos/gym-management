@@ -7,17 +7,17 @@ public class PlanDto {
 	private Long id;
 	private String name;
 	private Double price;
-	private Integer durationInMonths;
+	private Integer durationInDays;
 	
 	public PlanDto() {
 	}
 
-	public PlanDto(Long id, String name, Double price, Integer durationInMonths) {
+	public PlanDto(Long id, String name, Double price, Integer durationInDays) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
-		this.durationInMonths = durationInMonths;
+		this.durationInDays = durationInDays;
 	}
 
 	public Long getId() {
@@ -44,16 +44,16 @@ public class PlanDto {
 		this.price = price;
 	}
 
-	public Integer getDurationInMonths() {
-		return durationInMonths;
+	public Integer getDurationInDays() {
+		return durationInDays;
 	}
 
-	public void setDurationInMonths(Integer durationInMonths) {
-		this.durationInMonths = durationInMonths;
+	public void setDurationInDays(Integer durationInDays) {
+		this.durationInDays = durationInDays;
 	}
 	
 
 	public static PlanDto fromPlanDto(Plan plan) {
-		return new PlanDto(plan.getId(), plan.getName(), plan.getPrice(), plan.getDurationInMonths());
+		return new PlanDto(plan.getId(), plan.getName(), plan.getPrice(), plan.getDurationInDays());
 	}
 }

@@ -21,7 +21,7 @@ public class Plan {
 	private String name;
 	private String description;
 	private Double price;
-	private Integer durationInMonths;
+	private Integer durationInDays;
 
 	@OneToMany(mappedBy = "plan")
 	private List<Subscription> subscriptions;
@@ -29,14 +29,14 @@ public class Plan {
 	public Plan() {
 	}
 
-	public Plan(Long id, String name, String description, Double price, Integer durationInMonths,
+	public Plan(Long id, String name, String description, Double price, Integer durationInDays,
 			List<Subscription> subscriptions) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.durationInMonths = durationInMonths;
+		this.durationInDays = durationInDays;
 		this.subscriptions = subscriptions;
 	}
 
@@ -72,12 +72,12 @@ public class Plan {
 		this.price = price;
 	}
 
-	public Integer getDurationInMonths() {
-		return durationInMonths;
+	public Integer getDurationInDays() {
+		return durationInDays;
 	}
 
-	public void setDurationInMonths(Integer durationInMonths) {
-		this.durationInMonths = durationInMonths;
+	public void setDurationInDays(Integer durationInDays) {
+		this.durationInDays = durationInDays;
 	}
 
 	public List<Subscription> getSubscriptions() {

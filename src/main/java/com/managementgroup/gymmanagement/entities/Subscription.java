@@ -37,7 +37,7 @@ public class Subscription implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SubscriptionStatus status;
 
-	@OneToOne
+	@OneToOne(mappedBy = "subscription")
 	private Payment payment;
 
 	public Subscription() {

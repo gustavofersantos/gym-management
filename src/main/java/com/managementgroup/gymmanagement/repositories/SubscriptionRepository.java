@@ -12,4 +12,5 @@ import com.managementgroup.gymmanagement.entities.enums.SubscriptionStatus;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 	Optional<Subscription> findByUserAndStatus(User user, SubscriptionStatus subscriptionStatus);
+	Optional<Subscription> findById(Subscription subscriptionId);
 }

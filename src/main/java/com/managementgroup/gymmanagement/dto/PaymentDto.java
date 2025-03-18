@@ -26,6 +26,14 @@ public class PaymentDto {
 		this.paymentStatus = paymentStatus;
 		this.paymentMethod = paymentMethod;
 	}
+	
+	public PaymentDto(Payment payment) {
+	    this.id = payment.getId();
+	    this.amount = payment.getAmount();
+	    this.paymentDate = payment.getPaymentDate();
+	    this.paymentStatus = payment.getPaymentStatus();
+	    this.paymentMethod = payment.getPaymentMethod().name();
+	}
 
 	public Long getId() {
 		return id;

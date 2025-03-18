@@ -8,7 +8,7 @@ public class PlanDto {
 	private String name;
 	private Double price;
 	private Integer durationInDays;
-	
+
 	public PlanDto() {
 	}
 
@@ -51,9 +51,16 @@ public class PlanDto {
 	public void setDurationInDays(Integer durationInDays) {
 		this.durationInDays = durationInDays;
 	}
-	
 
-	public static PlanDto fromPlanDto(Plan plan) {
+	public static PlanDto fromEntity(Plan plan) {
 		return new PlanDto(plan.getId(), plan.getName(), plan.getPrice(), plan.getDurationInDays());
+	}
+
+	public static Plan toEntity(PlanDto dto) {
+		Plan plan = new Plan();
+		plan.setId(dto.getId());
+		plan.setName(dto.getName());
+		plan.setPrice(dto.getPrice());
+		return plan;
 	}
 }

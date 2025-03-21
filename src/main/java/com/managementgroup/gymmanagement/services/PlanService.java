@@ -39,6 +39,7 @@ public class PlanService {
                 .orElseThrow(() -> new ObjectNotFoundException("Plano não encontrado"));
 
         existingPlan.setName(planDto.getName());
+        existingPlan.setDescription(planDto.getDescription());
         existingPlan.setPrice(planDto.getPrice());
 
         return PlanDto.fromEntity(planRepository.save(existingPlan));

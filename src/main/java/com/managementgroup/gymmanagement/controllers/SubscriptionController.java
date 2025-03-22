@@ -17,10 +17,10 @@ public class SubscriptionController {
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<SubscriptionDto> createSubscription(@RequestBody SubscriptionDto subscriptionDto) {
         SubscriptionDto createdSubscription = subscriptionService.createSubscription(subscriptionDto);
-        return ResponseEntity.ok(createdSubscription);
+        return ResponseEntity.status(201).body(createdSubscription);
         
     }
 

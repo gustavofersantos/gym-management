@@ -31,15 +31,12 @@ public class PaymentService {
 		Subscription subscription = subscriptionRepository.findById(subscriptionId)
 				.orElseThrow(() -> new ObjectNotFoundException("Assinatura não encontrada"));
 
-		if (subscription.getStatus() != SubscriptionStatus.PENDING) {
-			throw new IllegalStateException("A assinatura já foi paga ou não pode ser paga");
-		}
 
 		Payment payment = new Payment();
 		payment.setSubscription(subscription);
 		payment.setAmount(amount);
 		payment.setPaymentMethod(paymentMethod);
-		payment.setPaymentStatus(PaymentStatus.PENDING);
+		payment.setPaymentStatus(PaymentStatus.PAYMENT_PENDING);
 
 		subscription.setStatus(SubscriptionStatus.ACTIVATED);
 		subscriptionRepository.save(subscription);

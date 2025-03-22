@@ -45,7 +45,7 @@ public class SubscriptionService {
         subscription.setPlan(plan);
         subscription.setStartDate(LocalDateTime.now());
         subscription.setEndDate(LocalDateTime.now().plusDays(plan.getDurationInDays()));
-        subscription.setStatus(SubscriptionStatus.PENDING);
+        subscription.setStatus(SubscriptionStatus.DISABLED);
 
         return SubscriptionDto.fromSubscription(subscriptionRepository.save(subscription));
     }

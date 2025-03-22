@@ -1,7 +1,7 @@
 package com.managementgroup.gymmanagement.entities.enums;
 
 public enum PaymentStatus {
-	PENDING,
+	PAYMENT_PENDING,
 	PAID,
 	CANCELED
 }

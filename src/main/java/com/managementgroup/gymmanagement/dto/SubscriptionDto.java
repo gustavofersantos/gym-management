@@ -1,6 +1,7 @@
 package com.managementgroup.gymmanagement.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.managementgroup.gymmanagement.entities.Subscription;
 
@@ -9,14 +10,14 @@ public class SubscriptionDto {
 	private Long id;
     private String userCpf;
     private String planName;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     
     public SubscriptionDto() {
     	
     }
 
-	public SubscriptionDto(Long id, String userCpf, String planName, LocalDate startDate, LocalDate endDate) {
+	public SubscriptionDto(Long id, String userCpf, String planName, LocalDateTime startDate, LocalDateTime endDate) {
 		super();
 		this.id = id;
 		this.userCpf = userCpf;
@@ -49,24 +50,33 @@ public class SubscriptionDto {
 		this.planName = planName;
 	}
 
-	public LocalDate getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDate getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
     
-    public static SubscriptionDto fromSubscriptionDto(Subscription subscription) {
-    	return new SubscriptionDto(subscription.getId(), subscription.getUser().getCpf(), subscription.getPlan().getName(), subscription.getStartDate(), subscription.getEndDate());
+	public static SubscriptionDto fromSubscription(Subscription subscription) {
+        Objects.requireNonNull(subscription, "Subscription não pode ser nulo");
+        Objects.requireNonNull(subscription.getUser(), "Usuário não pode ser nulo");
+        Objects.requireNonNull(subscription.getPlan(), "Plano não pode ser nulo");
+
+        return new SubscriptionDto(
+            subscription.getId(),
+            subscription.getUser().getCpf(),
+            subscription.getPlan().getName(),
+            subscription.getStartDate(),
+            subscription.getEndDate()
+        );
     }
-	
 }

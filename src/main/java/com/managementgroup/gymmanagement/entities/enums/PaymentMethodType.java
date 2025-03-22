@@ -1,6 +1,6 @@
 package com.managementgroup.gymmanagement.entities.enums;
 
-public enum PaymentMethod {
+public enum PaymentMethodType {
 	PIX,
 	CASH,
 	DEBIT,

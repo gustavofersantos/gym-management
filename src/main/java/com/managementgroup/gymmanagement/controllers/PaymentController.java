@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.managementgroup.gymmanagement.dto.PaymentDto;
-import com.managementgroup.gymmanagement.entities.enums.PaymentMethod;
+import com.managementgroup.gymmanagement.entities.PaymentMethod;
 import com.managementgroup.gymmanagement.entities.enums.PaymentStatus;
 import com.managementgroup.gymmanagement.services.PaymentService;
 

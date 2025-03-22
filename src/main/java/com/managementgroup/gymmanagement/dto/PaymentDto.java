@@ -1,24 +1,25 @@
 package com.managementgroup.gymmanagement.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.managementgroup.gymmanagement.entities.Payment;
+import com.managementgroup.gymmanagement.entities.PaymentMethod;
 import com.managementgroup.gymmanagement.entities.enums.PaymentStatus;
 
 public class PaymentDto {
 	
 	private Long id;
 	private Double amount;
-	private LocalDate paymentDate;
+	private LocalDateTime paymentDate;
 	private PaymentStatus paymentStatus;
-	private String paymentMethod;
+	private PaymentMethod paymentMethod;
 
 	public PaymentDto() {
 
 	}
 
-	public PaymentDto(Long id, Double amount, LocalDate paymentDate, PaymentStatus paymentStatus,
-			String paymentMethod) {
+	public PaymentDto(Long id, Double amount, LocalDateTime paymentDate, PaymentStatus paymentStatus,
+			PaymentMethod paymentMethod) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -32,7 +33,7 @@ public class PaymentDto {
 	    this.amount = payment.getAmount();
 	    this.paymentDate = payment.getPaymentDate();
 	    this.paymentStatus = payment.getPaymentStatus();
-	    this.paymentMethod = payment.getPaymentMethod().name();
+	    this.paymentMethod = payment.getPaymentMethod();
 	}
 
 	public Long getId() {
@@ -51,11 +52,11 @@ public class PaymentDto {
 		this.amount = amount;
 	}
 
-	public LocalDate getPaymentDate() {
+	public LocalDateTime getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(LocalDate paymentDate) {
+	public void setPaymentDate(LocalDateTime paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 
@@ -67,17 +68,17 @@ public class PaymentDto {
 		this.paymentStatus = paymentStatus;
 	}
 
-	public String getPaymentMethod() {
+	public PaymentMethod getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
 	public static PaymentDto fromPaymentDto(Payment payment) {
 		return new PaymentDto(payment.getId(), payment.getAmount(), payment.getPaymentDate(),
-				payment.getPaymentStatus(), payment.getPaymentMethod().name());
+				payment.getPaymentStatus(), payment.getPaymentMethod());
 	}
 
 }

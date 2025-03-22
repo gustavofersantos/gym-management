@@ -1,9 +1,9 @@
 package com.managementgroup.gymmanagement.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-import com.managementgroup.gymmanagement.entities.enums.PaymentMethod;
+import com.managementgroup.gymmanagement.entities.enums.PaymentMethodType;
 import com.managementgroup.gymmanagement.entities.enums.PaymentStatus;
 
 import jakarta.persistence.Entity;
@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -25,22 +26,23 @@ public class Payment {
 	private Long id;
 
 	@OneToOne
-	@JoinColumn(name = "subscription_id")
+	@JoinColumn(name = "subscription_id", nullable = false)
 	private Subscription subscription;
 
 	private Double amount;
-	private LocalDate paymentDate;
+	private LocalDateTime paymentDate;
 
 	@Enumerated(EnumType.STRING)
 	private PaymentStatus paymentStatus;
 
-	@Enumerated(EnumType.STRING)
+	@ManyToOne
+	@JoinColumn(name = "payment_method_id", nullable = false)
 	private PaymentMethod paymentMethod;
 
 	public Payment() {
 	}
 
-	public Payment(Long id, Subscription subscription, Double amount, LocalDate paymentDate,
+	public Payment(Long id, Subscription subscription, Double amount, LocalDateTime paymentDate,
 			PaymentStatus paymentStatus, PaymentMethod paymentMethod) {
 		super();
 		this.id = id;
@@ -75,11 +77,11 @@ public class Payment {
 		this.amount = amount;
 	}
 
-	public LocalDate getPaymentDate() {
+	public LocalDateTime getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(LocalDate paymentDate) {
+	public void setPaymentDate(LocalDateTime paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.managementgroup.gymmanagement.dto.PaymentDto;
 import com.managementgroup.gymmanagement.entities.Payment;
+import com.managementgroup.gymmanagement.entities.PaymentMethod;
 import com.managementgroup.gymmanagement.entities.Subscription;
-import com.managementgroup.gymmanagement.entities.enums.PaymentMethod;
 import com.managementgroup.gymmanagement.entities.enums.PaymentStatus;
 import com.managementgroup.gymmanagement.entities.enums.SubscriptionStatus;
 import com.managementgroup.gymmanagement.repositories.PaymentRepository;

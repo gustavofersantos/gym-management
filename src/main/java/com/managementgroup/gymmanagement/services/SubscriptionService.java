@@ -1,6 +1,6 @@
 package com.managementgroup.gymmanagement.services;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +26,11 @@ public class SubscriptionService {
     @Autowired
     private PlanRepository planRepository;
     
-    public SubscriptionDto createSubscription(Long userId, Long planId) {
-        User user = userRepository.findById(userId)
+    public SubscriptionDto createSubscription(SubscriptionDto subscriptionDto) {
+        User user = userRepository.findByCpf(subscriptionDto.getUserCpf())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        Plan plan = planRepository.findById(planId)
+        Plan plan = planRepository.findByName(subscriptionDto.getPlanName())
                 .orElseThrow(() -> new RuntimeException("Plano não encontrado"));
 
         Subscription activeSubscription = subscriptionRepository.findByUserAndStatus(user, SubscriptionStatus.ACTIVATED)
@@ -43,11 +43,11 @@ public class SubscriptionService {
         Subscription subscription = new Subscription();
         subscription.setUser(user);
         subscription.setPlan(plan);
-        subscription.setStartDate(LocalDate.now());
-        subscription.setEndDate(LocalDate.now().plusDays(plan.getDurationInDays()));
+        subscription.setStartDate(LocalDateTime.now());
+        subscription.setEndDate(LocalDateTime.now().plusDays(plan.getDurationInDays()));
         subscription.setStatus(SubscriptionStatus.PENDING);
 
-        return SubscriptionDto.fromSubscriptionDto(subscriptionRepository.save(subscription));
+        return SubscriptionDto.fromSubscription(subscriptionRepository.save(subscription));
     }
     
     public SubscriptionDto cancelSubscription(Long userId) {
@@ -58,6 +58,6 @@ public class SubscriptionService {
                 .orElseThrow(() -> new RuntimeException("O usuário não possui assinatura ativa para cancelamento"));
         
         subscription.setStatus(SubscriptionStatus.DISABLED);
-        return SubscriptionDto.fromSubscriptionDto(subscriptionRepository.save(subscription));
+        return SubscriptionDto.fromSubscription(subscriptionRepository.save(subscription));
     }
 }

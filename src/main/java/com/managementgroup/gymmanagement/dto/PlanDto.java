@@ -2,12 +2,20 @@ package com.managementgroup.gymmanagement.dto;
 
 import com.managementgroup.gymmanagement.entities.Plan;
 
+import jakarta.validation.constraints.NotNull;
+
 public class PlanDto {
 
 	private Long id;
+	
+	@NotNull
 	private String name;
+	
 	private String description;
+	
+	@NotNull
 	private Double price;
+	
 	private Integer durationInDays;
 
 	public PlanDto() {
@@ -72,6 +80,7 @@ public class PlanDto {
 		plan.setName(planDto.getName());
 		plan.setDescription(planDto.getDescription());
 		plan.setPrice(planDto.getPrice());
+		plan.setDurationInDays(planDto.getDurationInDays());
 		return plan;
 	}
 }

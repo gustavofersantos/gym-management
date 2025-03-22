@@ -1,7 +1,7 @@
 package com.managementgroup.gymmanagement.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.managementgroup.gymmanagement.entities.enums.SubscriptionStatus;
@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -26,13 +27,15 @@ public class Subscription implements Serializable {
 	private Long id;
 
 	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
 	@ManyToOne
+	@JoinColumn(name = "plan_id", nullable = false)
 	private Plan plan;
 
-	private LocalDate startDate;
-	private LocalDate endDate;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
 
 	@Enumerated(EnumType.STRING)
 	private SubscriptionStatus status;
@@ -43,7 +46,7 @@ public class Subscription implements Serializable {
 	public Subscription() {
 	}
 
-	public Subscription(Long id, User user, Plan plan, LocalDate startDate, LocalDate endDate,
+	public Subscription(Long id, User user, Plan plan, LocalDateTime startDate, LocalDateTime endDate,
 			SubscriptionStatus status, Payment payment) {
 		super();
 		this.id = id;
@@ -79,19 +82,19 @@ public class Subscription implements Serializable {
 		this.plan = plan;
 	}
 
-	public LocalDate getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDate getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 

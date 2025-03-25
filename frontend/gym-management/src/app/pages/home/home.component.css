@@ -1,0 +1,129 @@
+.container {
+    font-family: Arial, sans-serif;
+    color: white;
+    background-color: #2D2D2D;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .nav-list {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-item {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+  
+  .nav-item:hover {
+    color: #f1c40f;
+  }
+
+  .hero {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 48px;
+    font-weight: bold;
+    opacity: 0;
+    animation: fadeInUp 1s forwards;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .about {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .about-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .about-text {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #ddd;
+  }
+
+  .plans {
+    padding: 50px;
+    background-color: #333;
+    text-align: center;
+  }
+  
+  .plans-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .plan {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .plan-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .plan-price {
+    font-size: 20px;
+    color: #f1c40f;
+    margin-top: 10px;
+  }
+  
+  .plan-premium {
+    background-color: #f39c12;
+    color: black;
+  }
+  
+  .plan-black {
+    background-color: #34495e;
+  }
+  
+  .contact {
+    padding: 30px;
+    background-color: #1a1a1a;
+    text-align: center;
+  }

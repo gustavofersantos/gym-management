@@ -1,0 +1,45 @@
+<div class="login-section">
+    <div class="login-container">
+      <h2 class="login-title">Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+        <div class="form-group">
+          <label for="cpf">CPF:</label>
+          <input id="cpf" type="cpf" formControlName="cpf" placeholder="Seu CPF" />
+          <div class="error-messages" *ngIf="loginForm.get('cpf')?.invalid && loginForm.get('cpf')?.touched">
+            <small *ngIf="loginForm.get('cpf')?.hasError('required')">CPF é obrigatório.</small>
+            <small *ngIf="loginForm.get('cpf')?.hasError('cpf')">CPF inválido.</small>
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <div class="password-container">
+            <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Sua senha" />
+            <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+              <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+          <div class="error-messages" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <small *ngIf="loginForm.get('password')?.hasError('required')">Senha é obrigatória.</small>
+          </div>
+        </div>
+  
+        <div class="form-options">
+          <div class="remember-me">
+            <input type="checkbox" id="remember" formControlName="rememberMe">
+            <label for="remember">Lembrar-se de mim</label>
+          </div>
+          <a class="forgot-password" routerLink="/recuperar-senha">Esqueceu a senha?</a>
+        </div>
+      
+        <button type="submit" [disabled]="loginForm.invalid" class="submit-btn">
+          <span>Entrar</span>
+        </button>
+        
+        <div class="register-link">
+          Não tem uma conta? <a routerLink="/cadastro">Cadastre-se</a>
+        </div>
+      </form>
+    </div>
+  </div>

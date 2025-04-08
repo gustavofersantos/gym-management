@@ -174,8 +174,7 @@
     color: #f39c12;
     text-decoration: underline;
   }
-  
-  /* Responsividade */
+
   @media (max-width: 600px) {
     .login-container {
       padding: 20px;

@@ -1,0 +1,92 @@
+<body>
+
+  <div class="registration-section">
+    <div class="registration-container">
+      <h2 class="registration-title">Cadastro</h2>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        
+        <div class="form-group">
+        <label for="name">Nome:</label>
+        <input id="name" type="text" formControlName="name" />
+        <div class="error-messages" *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+          <small *ngIf="userForm.get('name')?.hasError('required')">Nome é obrigatório.</small>
+          <small *ngIf="userForm.get('name')?.hasError('minlength')">Nome deve ter pelo menos 2 caracteres.</small>
+          <small *ngIf="userForm.get('name')?.hasError('maxlength')">Nome não pode ultrapassar 100 caracteres.</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Telefone:</label>
+        <input id="phone" type="text" formControlName="phone" />
+        <div class="error-messages" *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched">
+          <small *ngIf="userForm.get('phone')?.hasError('pattern')">O telefone deve ter 10 ou 11 dígitos.</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input id="email" type="email" formControlName="email" />
+        <div class="error-messages" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+          <small *ngIf="userForm.get('email')?.hasError('email')">E-mail inválido.</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="birthdate">Data de Nascimento:</label>
+        <input id="birthdate" type="date" formControlName="birthdate" />
+        <div class="error-messages" *ngIf="userForm.get('birthdate')?.invalid && userForm.get('birthdate')?.touched">
+          <small>Data de nascimento inválida.</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="cpf">CPF:</label>
+        <input id="cpf" type="text" formControlName="cpf" />
+        <div class="error-messages" *ngIf="userForm.get('cpf')?.invalid && userForm.get('cpf')?.touched">
+          <small *ngIf="userForm.get('cpf')?.hasError('required')">CPF é obrigatório.</small>
+          <small *ngIf="userForm.get('cpf')?.hasError('pattern')">CPF deve conter 11 dígitos numéricos.</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Senha:</label>
+        <div class="password-container">
+          <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+          <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div class="error-messages" *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">
+          <small *ngIf="userForm.get('password')?.hasError('required')">Insira uma senha.</small>
+          <small *ngIf="userForm.get('password')?.hasError('minlength')">A senha deve ter pelo menos 6 caracteres.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Senha:</label>
+        <div class="password-container">
+          <input id="confirmPassword" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" />
+          <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confirmPassword')">
+            <i class="fa" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div class="error-messages" *ngIf="userForm.get('confirmPassword')?.invalid && userForm.get('confirmPassword')?.touched">
+          <small *ngIf="userForm.get('confirmPassword')?.hasError('required')">Confirme sua senha.</small>
+        </div>
+        <div class="error-messages" *ngIf="userForm.hasError('passwordMismatch') && userForm.get('confirmPassword')?.touched">
+          <small>As senhas não conferem.</small>
+        </div>
+      </div>
+    
+      <button type="submit" [disabled]="userForm.invalid" class="submit-btn">
+        <span>Cadastrar</span>
+      </button>
+      
+      <div class="login-link">
+        Já tem uma conta? 
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>

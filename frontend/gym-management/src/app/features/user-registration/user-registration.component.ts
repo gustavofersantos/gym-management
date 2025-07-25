@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { response } from 'express';
-import { error } from 'console';
+import { HttpClientModule } from '@angular/common/http';
 
 interface UserPayload {
   name: string;
@@ -16,7 +15,7 @@ interface UserPayload {
 
 @Component({
   selector: 'app-user-registration',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.css']
 })

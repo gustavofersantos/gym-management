@@ -43,4 +43,12 @@ public class MasterPasswordAuthenticationProvider implements AuthenticationProvi
 		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 	}
 
+	
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
+	
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
 }

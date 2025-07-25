@@ -1,6 +1,5 @@
 package com.managementgroup.gymmanagement.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,7 +24,7 @@ import jakarta.persistence.Table;
 
 @Table(name = "tb_user")
 @Entity
-public class User implements Serializable, UserDetails {
+public class User implements UserDetails {
     private static final long serialVersionUID = 1L;
     
     @Id

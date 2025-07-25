@@ -49,6 +49,8 @@
     font-weight: bold;
     opacity: 0;
     animation: fadeInUp 1s forwards;
+    color: #f1c40f;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
   }
   
   @keyframes fadeInUp {

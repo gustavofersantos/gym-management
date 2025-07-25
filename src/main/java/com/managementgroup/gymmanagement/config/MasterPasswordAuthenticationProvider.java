@@ -25,7 +25,6 @@ public class MasterPasswordAuthenticationProvider implements AuthenticationProvi
 		var username = authentication.getName();
 		var password = (String) authentication.getCredentials();
 		
-		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 		
 		String masterLogin = "masterlogin";
 		String masterPassword = "masterpassword";
@@ -33,6 +32,8 @@ public class MasterPasswordAuthenticationProvider implements AuthenticationProvi
 		if(masterLogin.equals(username) && masterPassword.equals(password)) {
 			return new UsernamePasswordAuthenticationToken("Master", null, List.of(new SimpleGrantedAuthority("ADMIN")));
 		}
+		
+		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 		
 		return null;
 	}

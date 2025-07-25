@@ -3,7 +3,6 @@ package com.managementgroup.gymmanagement.entities;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import com.managementgroup.gymmanagement.entities.enums.PaymentMethodType;
 import com.managementgroup.gymmanagement.entities.enums.PaymentStatus;
 
 import jakarta.persistence.Entity;

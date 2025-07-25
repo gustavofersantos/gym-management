@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.managementgroup.gymmanagement.filters.CustomFilter;
 import com.managementgroup.gymmanagement.repositories.UserRepository;
 import com.managementgroup.gymmanagement.services.CustomUserDetailsService;
+import com.managementgroup.gymmanagement.config.MasterPasswordAuthenticationProvider;
 
 
 
@@ -31,7 +32,7 @@ public class SecurityConfiguration {
     DaoAuthenticationProvider ads;
 	
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider daoAuthenticationProvider, CustomFilter customFilter) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider daoAuthenticationProvider, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomFilter customFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
@@ -40,11 +41,18 @@ public class SecurityConfiguration {
                 })
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form.defaultSuccessUrl("/gym/me"))
+                .authenticationProvider(masterPasswordAuthenticationProvider)
                 .authenticationProvider(daoAuthenticationProvider)
                 .addFilterBefore(customFilter, BasicAuthenticationFilter.class)
                 .build();
     }
-    
+
+    @Bean
+    MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        MasterPasswordAuthenticationProvider provider = new MasterPasswordAuthenticationProvider();
+        return provider;
+    }
+
     @Bean
     DaoAuthenticationProvider daoAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
     	DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

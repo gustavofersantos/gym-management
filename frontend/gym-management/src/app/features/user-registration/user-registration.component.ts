@@ -1,6 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { response } from 'express';
+import { error } from 'console';
+
+interface UserPayload {
+  name: string;
+  phone?: string;
+  email?: string;
+  birthdate: string;
+  cpf: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-user-registration',
@@ -13,7 +25,7 @@ export class UserRegistrationComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
@@ -44,7 +56,18 @@ export class UserRegistrationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userForm.valid) {
-      console.log('Formulário enviado:', this.userForm.value);
+      const { confirmPassword, ...formValue }: { confirmPassword: string; } & UserPayload = this.userForm.value;
+
+      const userPayload = { ...formValue, phone: formValue.phone || '', email: formValue.email || '' };
+      this.userService.userRegister(userPayload).subscribe({
+        next: (response: any) => {
+          alert('Usuário cadastrado com sucesso!');
+          this.userForm.reset();
+        },
+        error: (error: any) => {
+          alert('Erro ao cadastrar usuário. Verifique os dados e tente novamente.');
+        }
+      });
     } else {
       Object.keys(this.userForm.controls).forEach(key => {
         const control = this.userForm.get(key);

@@ -20,7 +20,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByCpf(username).orElseThrow();
+		System.out.println("Tentando buscar usuário com CPF: " + username);
+		
+		User user = userRepository.findByCpf(username)
+			.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com CPF: " + username));
 		
 		return user;
 	}

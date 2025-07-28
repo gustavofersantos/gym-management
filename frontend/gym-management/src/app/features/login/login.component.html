@@ -1,11 +1,17 @@
 <div class="login-section">
     <div class="login-container">
       <h2 class="login-title">Login</h2>
+      
+      <!-- Mensagem de erro -->
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+      
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         
         <div class="form-group">
           <label for="cpf">CPF:</label>
-          <input id="cpf" type="cpf" formControlName="cpf" placeholder="Seu CPF" />
+          <input id="cpf" type="text" formControlName="cpf" placeholder="Seu CPF" />
           <div class="error-messages" *ngIf="loginForm.get('cpf')?.invalid && loginForm.get('cpf')?.touched">
             <small *ngIf="loginForm.get('cpf')?.hasError('required')">CPF é obrigatório.</small>
             <small *ngIf="loginForm.get('cpf')?.hasError('cpf')">CPF inválido.</small>
@@ -33,8 +39,9 @@
           <a class="forgot-password" routerLink="/recuperar-senha">Esqueceu a senha?</a>
         </div>
       
-        <button type="submit" [disabled]="loginForm.invalid" class="submit-btn">
-          <span>Entrar</span>
+        <button type="submit" [disabled]="loginForm.invalid || isLoading" class="submit-btn">
+          <span *ngIf="!isLoading">Entrar</span>
+          <span *ngIf="isLoading">Entrando...</span>
         </button>
         
         <div class="register-link">

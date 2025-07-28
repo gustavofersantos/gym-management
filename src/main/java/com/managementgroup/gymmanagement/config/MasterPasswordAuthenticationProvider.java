@@ -2,7 +2,9 @@ package com.managementgroup.gymmanagement.config;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -15,7 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MasterPasswordAuthenticationProvider implements AuthenticationProvider{
 
+	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	
@@ -33,8 +38,7 @@ public class MasterPasswordAuthenticationProvider implements AuthenticationProvi
 			return new UsernamePasswordAuthenticationToken("Master", null, List.of(new SimpleGrantedAuthority("ADMIN")));
 		}
 		
-		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-		
+		// Se não for o usuário master, retorna null para que o DaoAuthenticationProvider seja chamado
 		return null;
 	}
 
@@ -44,7 +48,7 @@ public class MasterPasswordAuthenticationProvider implements AuthenticationProvi
 	}
 
 	
-	public void setUserDetailsService(UserDetailsService userDetailsService) {
+	public void setUserDetailsService(UserDetailsService userDetailsService) {	
 		this.userDetailsService = userDetailsService;
 	}
 	

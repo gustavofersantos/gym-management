@@ -27,20 +27,17 @@ import com.managementgroup.gymmanagement.repositories.UserRepository;
 import com.managementgroup.gymmanagement.services.CustomUserDetailsService;
 import com.managementgroup.gymmanagement.config.MasterPasswordAuthenticationProvider;
 
-
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
     
-    DaoAuthenticationProvider ads;
-	
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider daoAuthenticationProvider, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomFilter customFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
+                	authorize.requestMatchers("/auth/**").permitAll();
                 	authorize.requestMatchers("/gym/public", "/gym/register").permitAll();
                     authorize.anyRequest().authenticated();
                 })
@@ -55,6 +52,8 @@ public class SecurityConfiguration {
     @Bean
     MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         MasterPasswordAuthenticationProvider provider = new MasterPasswordAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 

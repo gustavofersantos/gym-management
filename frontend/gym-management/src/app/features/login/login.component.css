@@ -41,6 +41,17 @@
     color: #f1c40f;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+
+  .error-message {
+    background-color: rgba(231, 76, 60, 0.2);
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
   
   .form-group {
     margin-bottom: 20px;

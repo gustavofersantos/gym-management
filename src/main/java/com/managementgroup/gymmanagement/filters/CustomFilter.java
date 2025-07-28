@@ -22,8 +22,17 @@ public class CustomFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+
 		
-		if (request.getRequestURI().equals("/gym/register") || request.getRequestURI().equals("/login") || request.getRequestURI().equals("/auth/login")) {
+		// Permitir todos os endpoints /auth/** sem autenticação
+		if (request.getRequestURI().startsWith("/auth/")) {
+	        filterChain.doFilter(request, response);
+	        return;
+	    }
+		
+		// Permitir endpoints específicos
+		if (request.getRequestURI().equals("/gym/register") || 
+			request.getRequestURI().equals("/login")) {
 	        filterChain.doFilter(request, response);
 	        return;
 	    }
@@ -36,6 +45,7 @@ public class CustomFilter extends OncePerRequestFilter {
 				
 				SecurityContext securityContext = SecurityContextHolder.getContext();
 				securityContext.setAuthentication(authentication);
+				System.out.println("CustomFilter - Autenticação secreta aplicada");
 			}
 		}
 		

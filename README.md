@@ -101,7 +101,7 @@ O serviço de cadastro de usuário utiliza a seguinte URL:
 POST http://localhost:8081/gym/register
 ```
 
-Por ora somente o serviço de cadastro está habilitado, demais funcionalidades estão por vir!
+Por ora somente o serviço de cadastro e login está habilitado no frontend, demais funcionalidades estão por vir!
 
 Caso enfrente erro de **CORS**, verifique se o backend está com CORS habilitado corretamente.
 

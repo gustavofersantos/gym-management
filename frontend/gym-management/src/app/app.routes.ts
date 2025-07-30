@@ -11,5 +11,5 @@ export const routes: Routes = [
     { path: 'register', component: UserRegistrationComponent },
     { path: 'home', component: HomeComponent },
     { path: 'dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
-    //{ path: '**', redirectTo: 'login' } Redireciona quando a rota é inválida
+    { path: '**', redirectTo: 'login' } // Redireciona quando a rota é inválida
 ];

@@ -4,6 +4,58 @@
   background-color: rgba(26, 26, 26, 0.95);
 }
 
+
+.hero {
+  height: 100vh;
+  background-image: url('/assets/autere.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #1a1a1a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+  
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+  
+.nav-list {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.nav-item:hover {
+  color: #f1c40f;
+}
+
+.contact {
+  padding: 30px;
+  background-color: #1a1a1a;
+  text-align: center;
+}
+
+
 h2 {
   text-align: center;
   margin-bottom: 2rem;
@@ -14,6 +66,7 @@ h2 {
   gap: 2rem;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .card {

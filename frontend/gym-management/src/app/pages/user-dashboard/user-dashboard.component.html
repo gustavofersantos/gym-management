@@ -1,22 +1,43 @@
-<div class="dashboard-container">
-  <h2>Bem-vindo, {{ userName }}! </h2>
-  <div class="card-container">
-    <div class="card">
-      <h3>Meus Planos</h3>
-      <p>Visualize seus planos de treino e histórico de assinaturas.</p>
-      <button>Ver Planos</button>
-    </div>
+<div class="container">
+    <header class="header">
+      <h1 class="title">Academia Lorem</h1>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a routerLink="/login" class="nav-item">Entre</a></li>
+          <li><a routerLink="/register" class="nav-item">Cadastre-se</a></li>
+          <li><a href="#about" class="nav-item">Sobre</a></li>
+          <li><a href="#plans" class="nav-item">Planos</a></li>
+          <li><a href="#contact" class="nav-item">Contato</a></li>
+        </ul>
+      </nav>
+    </header>
+  
+    <section class="hero">
+      <div class="card-container">
+          <div class="card">
+            <h3>Meus Planos</h3>
+            <p>Visualize seus planos de treino e histórico de assinaturas.</p>
+            <button>Ver Planos</button>
+          </div>
 
-    <div class="card">
-      <h3>Configurações</h3>
-      <p>Gerencie seus dados pessoais e preferências de conta.</p>
-      <button>Configurações</button>
-    </div>
+          <div class="card">
+            <h3>Configurações</h3>
+            <p>Gerencie seus dados pessoais e preferências de conta.</p>
+            <button>Configurações</button>
+          </div>
 
-    <div class="card">
-      <h3>Atividades</h3>
-      <p>Acompanhe suas atividades recentes na academia.</p>
-      <button>Ver Atividades</button>
-    </div>
+          <div class="card">
+            <h3>Atividades</h3>
+            <p>Acompanhe suas atividades recentes na academia.</p>
+            <button>Ver Atividades</button>
+          </div>
+          </div>
+    </section>
+  
+    <footer id="contact" class="contact">
+      <p>Endereço: lorem ipsum</p>
+      <p>(99) 9 9999-9999</p>
+      <p>email.com</p>
+    </footer>
   </div>
-</div>
+  

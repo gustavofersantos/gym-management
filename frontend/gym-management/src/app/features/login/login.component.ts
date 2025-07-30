@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   showPassword = false;
   isLoading = false;
   errorMessage = '';
+  private storageService = inject(StorageService);
 
   constructor(
     private fb: FormBuilder,
@@ -56,11 +58,11 @@ export class LoginComponent implements OnInit {
             
             if (response.success) {
               if (this.loginForm.get('rememberMe')?.value) {
-                localStorage.setItem('userCpf', loginData.cpf);
+                this.storageService.setItem('userCpf', loginData.cpf);
               }
               
               // Salvar dados do usuário na sessão
-              localStorage.setItem('userData', JSON.stringify(response.user));
+              this.storageService.setItem('userData', JSON.stringify(response.user));
               
               // Redirecionar para a página principal
               this.router.navigate(['/dashboard']);

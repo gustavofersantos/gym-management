@@ -20,19 +20,31 @@
   
   .nav-list {
     display: flex;
-    gap: 20px;
+    gap: 50px;
   }
   
   .nav-item {
     text-decoration: none;
-    color: white;
+    color: black;
     font-size: 16px;
     transition: color 0.3s;
   }
-  
-  .nav-item:hover {
-    color: #f1c40f;
-  }
+
+  button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #f1c40f;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #997a00;
+}
+
 
   .hero {
     height: 100vh;

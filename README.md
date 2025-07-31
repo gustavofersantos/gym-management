@@ -1,10 +1,10 @@
-# Gym Management
-
-Sistema de gerenciamento de academia de musculação com backend em Java Spring Boot e frontend em Angular.
+# Umbrafit - Gestão de academia
+Agora a academia possui um nome: Umbrafit!
+Meu projeto é um sistema de gerenciamento de academia de musculação com backend em Java - Spring Boot e frontend em Angular.
 
 ## Sobre o projeto
 
-Este projeto tem como objetivo oferecer uma solução completa para o gerenciamento de academias, do qual permite cadastro de usuários, controle de presenças, planos, entre outras funcionalidades em desenvolvimento.
+Este projeto tem como objetivo oferecer uma solução completa para o gerenciamento de academia, do qual permite cadastro de usuários, controle de presenças, planos, entre outras funcionalidades em desenvolvimento.
 
 ## Tecnologias Utilizadas
 
@@ -99,6 +99,12 @@ O serviço de cadastro de usuário utiliza a seguinte URL:
 
 ```
 POST http://localhost:8081/gym/register
+```
+
+O serviço para ver a lista de alunos no banco de dados:
+
+```
+GET http://localhost:8081/gym/alunos
 ```
 
 Por ora somente o serviço de cadastro e login está habilitado no frontend, demais funcionalidades estão por vir!

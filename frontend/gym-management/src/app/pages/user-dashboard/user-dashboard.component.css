@@ -1,6 +1,9 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
 .dashboard-container {
   padding: 2rem;
-  font-family: 'Segoe UI', sans-serif;
   background-color: rgba(26, 26, 26, 0.95);
 }
 
@@ -27,12 +30,13 @@
   background-color: #1a1a1a;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-  
+
 .title {
   font-size: 24px;
   font-weight: bold;
+  color: aliceblue;
 }
-  
+
 .nav-list {
   display: flex;
   gap: 20px;
@@ -74,7 +78,7 @@ h2 {
   border-radius: 10px;
   padding: 1.5rem;
   width: 420px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.2s;
 }
@@ -106,4 +110,12 @@ button {
 
 button:hover {
   background-color: #997a00;
+}
+
+.contact {
+  padding: 30px;
+  background-color: #1a1a1a;
+  color: aliceblue;
+  text-align: center;
+  font-family: Arial, sans-serif;
 }

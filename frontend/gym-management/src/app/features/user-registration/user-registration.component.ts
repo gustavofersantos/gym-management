@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import Swal from 'sweetalert2';
 
 interface UserPayload {
   name: string;
@@ -24,7 +25,7 @@ export class UserRegistrationComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
@@ -59,18 +60,35 @@ export class UserRegistrationComponent implements OnInit {
 
       const userPayload = { ...formValue, phone: formValue.phone || '', email: formValue.email || '' };
       this.userService.userRegister(userPayload).subscribe({
-        next: (response: any) => {
-          alert('Usuário cadastrado com sucesso!');
+        next: () => {
+          Swal.fire({
+            title: 'Cadastro realizado!',
+            text: 'Seu cadastro foi concluído com sucesso.',
+            icon: 'success',
+            background: '#1a1a1a',
+            color: '#f1c40f',
+            confirmButtonColor: '#f1c40f',
+            confirmButtonText: 'Ir para o login',
+            customClass: {
+              popup: 'animated fadeInDown'
+            }
+          }).then(() => {
+            this.router.navigate(['/login']);
+          });
+
           this.userForm.reset();
         },
-        error: (error: any) => {
-          alert('Erro ao cadastrar usuário. Verifique os dados e tente novamente.');
+        error: () => {
+          Swal.fire({
+            title: 'Erro!',
+            text: 'Não foi possível concluir o cadastro.',
+            icon: 'error',
+            background: '#1a1a1a',
+            color: '#f1c40f',
+            confirmButtonColor: '#e74c3c',
+            confirmButtonText: 'Ok'
+          });
         }
-      });
-    } else {
-      Object.keys(this.userForm.controls).forEach(key => {
-        const control = this.userForm.get(key);
-        control?.markAsTouched();
       });
     }
   }

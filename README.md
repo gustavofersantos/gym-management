@@ -9,7 +9,7 @@ Este projeto tem como objetivo oferecer uma solução completa para o gerenciame
 ## Tecnologias Utilizadas
 
 ### Backend
-- Java 17
+- Java 21
 - Spring Boot
 - Spring Data JPA
 - PostgreSQL

@@ -21,7 +21,6 @@ Este projeto tem como objetivo oferecer uma solução completa para o gerenciame
 - Angular 17
 - TypeScript
 - Angular Material
-- Reactive Forms
 - HTTP Client
 
 ## Estrutura do Projeto

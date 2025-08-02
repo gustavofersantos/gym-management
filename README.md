@@ -41,7 +41,7 @@ gym-management/  # Projeto Java Spring Boot
 
 ### Pré-requisitos
 
-- [Java 17+](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 - [Node.js 18+](https://nodejs.org/)
 - [Angular CLI](https://angular.io/cli)
 - [PostgreSQL](https://www.postgresql.org/)

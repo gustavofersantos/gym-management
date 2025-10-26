@@ -1,41 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umbrafit - Dashboard do Usuário</title>
+</head>
 <body>
 
-  <div class="container">
-    <header class="header">
-      <h1 class="title">Umbrafit</h1>
-      <nav class="nav">
-        <ul class="nav-list">
+    <div class="dashboard-layout">
+        
+        <header class="header">
+            <h1 class="title">Umbrafit</h1>
+            <div>
+                <span class="title" style="font-size: large;">Bem-vindo, Teste Name!</span>
+                </div>
+        </header>
 
-        </ul>
-      </nav>
-    </header>
+        <nav class="sidebar">
+            <ul class="nav-list">
+                <li class="nav-item active"><a href="#">Dashboard</a></li>
+                <li class="nav-item"><a href="#">Meus Planos</a></li>
+                <li class="nav-item"><a href="#">Histórico de Treinos</a></li>
+                <li class="nav-item"><a href="#">Metas e Progresso</a></li>
+                <li class="nav-item"><a href="#">Configurações</a></li>
+                <li class="nav-item"><a href="#">Ajuda</a></li>
+            </ul>
+        </nav>
 
-    <section class="hero">
-      <div class="card-container">
-        <div class="card">
-          <h3>Meus Planos</h3>
-          <p>Visualize seus planos de treino e histórico de assinaturas.</p>
-          <button>Ver Planos</button>
-        </div>
+        <main class="dashboard-content">
+            
+            <h2 style="color: #f1c40f">Visão Geral</h2>
 
-        <div class="card">
-          <h3>Configurações</h3>
-          <p>Gerencie seus dados pessoais e preferências de conta.</p>
-          <button>Configurações</button>
-        </div>
+            <section class="widget-grid">
 
-        <div class="card">
-          <h3>Atividades</h3>
-          <p>Acompanhe suas atividades recentes na academia.</p>
-          <button>Ver Atividades</button>
-        </div>
-      </div>
-    </section>
+                <div class="widget">
+                    <h3 style="color: #f1c40f">Plano Ativo</h3>
+                    <div class="widget-value">Premium</div>
+                    <p>Seu plano está ativo até dd/mm/yyyy. Próximo pagamento: valor do plano.</p>
+                    <button class="btn-action">Gerenciar Plano</button>
+                </div>
 
-  </div>
-  <footer id="contact" class="contact">
-    <p>Rua fictícia, Bairro fictício - CEP 74xxx-xxx</p>
-    <p>(62) 9 9999-9999</p>
-    <p>umbrafit.atendimento&#64;a.com</p>
-  </footer>
+                <div class="widget">
+                    <h3 style="color: #f1c40f">Último Treino</h3>
+                    <div class="widget-value">Musculação</div>
+                    <p>Braços e Ombros. Data: Ontem às 18:30. Duração: 65 min.</p>
+                    <button class="btn-action">Ver Detalhes</button>
+                </div>
+
+                <div class="widget">
+                    <h3 style="color: #f1c40f">Série de Treinos</h3>
+                    <div class="widget-value">x Dias!</div> <p>Parabéns! Você treinou x dias seguidos esta semana. Continue assim!</p>
+                    <button class="btn-action">Ver Progresso</button>
+                </div>
+
+            </section>
+            
+            <h2 style="color: #f1c40f">Tabela sobre algo</h2>
+            <div class="widget" style="grid-column: 1 / -1; text-align: left;">
+                 <h3 style="color:aliceblue">Atividades da Última Semana</h3>
+                 <p>Pensando no que pode ser aqui para o usuário. Como adm/employee será uma tabela sobre as frequências dos alunos.</p>
+                 <button class="btn-action">Visualizar Relatório Completo</button>
+            </div>
+
+        </main>
+        
+        <footer class="contact">
+            <p>Umbrafit | Rua fictícia, Bairro fictício - CEP 74xxx-xxx</p>
+            <p>(62) 9 9999-9999 | umbrafit.atendimento&#64;a.com</p>
+        </footer>
+
+    </div>
 </body>
+</html>
